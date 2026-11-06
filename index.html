@@ -21,6 +21,7 @@
     <a class="logo" href="#top">✂ <span>Бритва</span></a>
     <nav class="nav" id="nav">
       <a href="#services">Услуги</a>
+      <a href="#steps">Как это</a>
       <a href="#team">Мастера</a>
       <a href="#gallery">Галерея</a>
       <a href="#contacts">Контакты</a>
@@ -35,20 +36,28 @@
 
     <!-- ГЕРОЙ С ВИДЕО -->
     <section class="hero">
-      <!-- Когда будет выбран ролик — вставьте его адрес в src="VIDEO_URL" -->
       <video class="hero-video" autoplay muted loop playsinline poster="img/hero.jpg"></video>
-
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <p class="hero-tag">Барбершоп в центре города</p>
-        <h1>Характер начинается<br>с головы</h1>
+        <div class="hero-line"></div>
+        <h1>Характер начинается<br><em>с головы</em></h1>
         <p class="hero-text">Стрижки, бороды и бритьё опасной бритвой. Работаем с характером — видим вас через час.</p>
         <div class="hero-actions">
           <a href="#booking" class="btn btn-solid yclients-link">Записаться онлайн</a>
           <a href="#services" class="btn btn-outline">Смотреть услуги</a>
         </div>
       </div>
+      <p class="scroll-hint">Листайте вниз</p>
     </section>
+
+    <!-- БЕГУЩАЯ СТРОКА -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Стрижки ✦ Бороды ✦ Опасная бритва ✦ Виски в подарок ✦ Стрижки ✦ Бороды ✦ Опасная бритва ✦ Виски в подарок ✦</span>
+        <span>Стрижки ✦ Бороды ✦ Опасная бритва ✦ Виски в подарок ✦ Стрижки ✦ Бороды ✦ Опасная бритва ✦ Виски в подарок ✦</span>
+      </div>
+    </div>
 
     <!-- ОФФЕР -->
     <section class="features section">
@@ -83,7 +92,7 @@
           <span class="price-value">1 500 ₽</span>
         </div>
         <div class="price-row reveal">
-          <div class="price-name"><h3>Стрижка + борода</h3><p>Комплекс: голова и форма бороды</p></div>
+          <div class="price-name"><h3>Стрижка + борода <span class="hit-badge">Хит</span></h3><p>Комплекс: голова и форма бороды</p></div>
           <span class="price-value">2 300 ₽</span>
         </div>
         <div class="price-row reveal">
@@ -102,6 +111,30 @@
           <div class="price-name"><h3>Стрижка машинкой</h3><p>Одна насадка по всей голове</p></div>
           <span class="price-value">800 ₽</span>
         </div>
+      </div>
+      <p class="section-text price-note">Комплекс «Стрижка + борода» берут чаще всего — экономия 200 ₽ против заказа по отдельности.</p>
+    </section>
+
+    <!-- КАК ПРОХОДИТ ВИЗИТ -->
+    <section class="steps section" id="steps">
+      <p class="section-tag">Процесс</p>
+      <h2 class="section-title">Как проходит визит</h2>
+      <div class="steps-grid">
+        <article class="step-card reveal">
+          <span class="step-num">01</span>
+          <h3>Запись за минуту</h3>
+          <p>Выбираете время онлайн или звоните. Подтверждение приходит сразу — ждать перезвона не нужно.</p>
+        </article>
+        <article class="step-card reveal">
+          <span class="step-num">02</span>
+          <h3>Консультация</h3>
+          <p>Обсуждаем форму с учётом роста волос и вашей жизни: стрижка должна легко укладываться дома.</p>
+        </article>
+        <article class="step-card reveal">
+          <span class="step-num">03</span>
+          <h3>Работа и уход</h3>
+          <p>Стрижка, укладка, рекомендации по стайлингу. Виски или кофе — за счёт заведения.</p>
+        </article>
       </div>
     </section>
 
