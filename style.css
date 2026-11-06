@@ -19,6 +19,7 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, .logo span, .footer-logo {
@@ -176,7 +177,6 @@ img, video { display: block; max-width: 100%; }
               linear-gradient(0deg, rgba(10, 8, 6, 0.75) 0%, rgba(10, 8, 6, 0) 35%);
 }
 
-
 .hero-content {
   position: relative;
   padding: 60px 24px;
@@ -192,11 +192,23 @@ img, video { display: block; max-width: 100%; }
   margin-bottom: 16px;
 }
 
+.hero-line {
+  width: 64px;
+  height: 3px;
+  background: var(--brass);
+  margin-bottom: 18px;
+}
+
 .hero h1 {
   font-size: clamp(38px, 7vw, 64px);
   line-height: 1.08;
   text-transform: uppercase;
   margin-bottom: 20px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--brass);
 }
 
 .hero-text {
@@ -209,6 +221,40 @@ img, video { display: block; max-width: 100%; }
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+}
+
+.hero-actions .btn-solid {
+  animation: btnGlow 2.4s ease-in-out infinite;
+}
+
+@keyframes btnGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 162, 78, 0.45); }
+  50% { box-shadow: 0 0 0 12px rgba(212, 162, 78, 0); }
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(242, 237, 229, 0.7);
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.scroll-hint::after {
+  content: '↓';
+  display: block;
+  margin-top: 6px;
+  font-size: 18px;
+  animation: hintBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(8px); opacity: 0.4; }
 }
 
 /* ---------- Секции ---------- */
@@ -258,6 +304,33 @@ img, video { display: block; max-width: 100%; }
 
 .feature-card p { color: var(--muted); font-size: 15px; }
 
+/* ---------- Бегущая строка ---------- */
+.marquee {
+  overflow: hidden;
+  background: var(--brass);
+  padding: 14px 0;
+  transform: rotate(-1deg) scale(1.02);
+  margin: -10px 0 10px;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 15px;
+  color: #1a1408;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 /* ---------- Прайс ---------- */
 .price-list { display: grid; gap: 14px; }
 
@@ -285,6 +358,55 @@ img, video { display: block; max-width: 100%; }
   color: var(--brass);
   white-space: nowrap;
 }
+
+.hit-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  margin-left: 8px;
+  border-radius: 999px;
+  background: var(--brass);
+  color: #1a1408;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  vertical-align: middle;
+}
+
+.price-note { margin-top: 20px; font-size: 14px; }
+
+/* ---------- Шаги ---------- */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.step-card {
+  padding: 28px;
+  background: var(--panel);
+  border: 1px solid rgba(212, 162, 78, 0.12);
+  border-radius: var(--radius);
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.step-card:hover {
+  border-color: rgba(212, 162, 78, 0.45);
+  transform: translateY(-4px);
+}
+
+.step-num {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  color: rgba(212, 162, 78, 0.35);
+  margin-bottom: 10px;
+}
+
+.step-card h3 { font-size: 20px; text-transform: uppercase; margin-bottom: 8px; }
+
+.step-card p { color: var(--muted); font-size: 15px; }
 
 /* ---------- Мастера ---------- */
 .team-grid {
@@ -386,60 +508,13 @@ img, video { display: block; max-width: 100%; }
   transform: translateY(0);
 }
 
-/* ---------- Акценты героя ---------- */
-.hero-line {
-  width: 64px;
-  height: 3px;
-  background: var(--brass);
-  margin-bottom: 18px;
-}
-
-.hero h1 em {
-  font-style: normal;
-  color: var(--brass);
-}
-
-.hero-actions .btn-solid {
-  animation: btnGlow 2.4s ease-in-out infinite;
-}
-
-@keyframes btnGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 162, 78, 0.45); }
-  50% { box-shadow: 0 0 0 12px rgba(212, 162, 78, 0); }
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(242, 237, 229, 0.7);
-  font-size: 13px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.scroll-hint::after {
-  content: '↓';
-  display: block;
-  margin-top: 6px;
-  font-size: 18px;
-  animation: hintBounce 1.6s ease-in-out infinite;
-}
-
-@keyframes hintBounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(8px); opacity: 0.4; }
-}
-
-
 /* ---------- Адаптив ---------- */
 @media (max-width: 860px) {
   .features-grid { grid-template-columns: 1fr; }
   .team-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .price-row { flex-direction: column; align-items: flex-start; }
+  .steps-grid { grid-template-columns: 1fr; }
 
   .nav {
     position: absolute;
@@ -461,129 +536,15 @@ img, video { display: block; max-width: 100%; }
   .header .btn-small { display: none; }
 
   .hero { min-height: 80vh; }
+
+  .hero-content { padding: 60px 24px 90px; }
+
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .scroll-hint { display: none; }
+
+  .marquee { transform: none; margin: 0; }
 }
-.steps-grid { grid-template-columns: 1fr; }
-
-/* ---------- Акценты героя ---------- */
-.hero-line {
-  width: 64px;
-  height: 3px;
-  background: var(--brass);
-  margin-bottom: 18px;
-}
-
-.hero h1 em {
-  font-style: normal;
-  color: var(--brass);
-}
-
-.hero-actions .btn-solid {
-  animation: btnGlow 2.4s ease-in-out infinite;
-}
-
-@keyframes btnGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 162, 78, 0.45); }
-  50% { box-shadow: 0 0 0 12px rgba(212, 162, 78, 0); }
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(242, 237, 229, 0.7);
-  font-size: 13px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.scroll-hint::after {
-  content: '↓';
-  display: block;
-  margin-top: 6px;
-  font-size: 18px;
-  animation: hintBounce 1.6s ease-in-out infinite;
-}
-
-@keyframes hintBounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(8px); opacity: 0.4; }
-}
-
-/* ---------- Бегущая строка ---------- */
-.marquee {
-  overflow: hidden;
-  background: var(--brass);
-  padding: 14px 0;
-  transform: rotate(-1deg) scale(1.02);
-  margin: -10px 0 10px;
-}
-
-.marquee-track {
-  display: flex;
-  gap: 48px;
-  white-space: nowrap;
-  animation: marquee 20s linear infinite;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 15px;
-  color: #1a1408;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ---------- Шаги ---------- */
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.step-card {
-  padding: 28px;
-  background: var(--panel);
-  border: 1px solid rgba(212, 162, 78, 0.12);
-  border-radius: var(--radius);
-  position: relative;
-  transition: border-color 0.3s, transform 0.3s;
-}
-
-.step-card:hover {
-  border-color: rgba(212, 162, 78, 0.45);
-  transform: translateY(-4px);
-}
-
-.step-num {
-  display: block;
-  font-family: 'Oswald', sans-serif;
-  font-size: 44px;
-  font-weight: 600;
-  color: rgba(212, 162, 78, 0.35);
-  margin-bottom: 10px;
-}
-
-.step-card h3 { font-size: 20px; text-transform: uppercase; margin-bottom: 8px; }
-
-.step-card p { color: var(--muted); font-size: 15px; }
-
-/* ---------- Бейдж «Хит» и заметка ---------- */
-.hit-badge {
-  display: inline-block;
-  padding: 2px 12px;
-  margin-left: 8px;
-  border-radius: 999px;
-  background: var(--brass);
-  color: #1a1408;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  vertical-align: middle;
-}
-
-.price-note { margin-top: 20px; font-size: 14px; }
