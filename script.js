@@ -1,29 +1,45 @@
-// ---------- Запасной фон, если картинка не загрузилась ----------
+// ---------- Настройки ----------
+// Сюда вставить ссылку на виджет YClients (даст заказчик):
+const YCLIENTS_URL = '';
+
+// Сюда вставить адрес видео для фона (когда выберете ролик):
+const VIDEO_URL = '';
+
+// ---------- Подключаем YClients ----------
+if (YCLIENTS_URL) {
+  document.querySelectorAll('.yclients-link').forEach(link => {
+    link.href = YCLIENTS_URL;
+  });
+}
+
+// ---------- Запасной фон ----------
 function imgFallback(img) {
-  img.style.background = 'linear-gradient(135deg, #d9b38c, #6f4e37)';
+  img.style.background = 'linear-gradient(135deg, #3a2c1d, #12100e)';
   img.style.minHeight = '200px';
   img.removeAttribute('src');
 }
 
+// ---------- Видео-фон: если ролика нет, показываем фото-плакат ----------
+const heroVideo = document.querySelector('.hero-video');
+if (heroVideo && !VIDEO_URL) {
+  heroVideo.removeAttribute('src');
+  heroVideo.load();
+}
+
 // ---------- Прелоадер ----------
 const preloader = document.getElementById('preloader');
+
+function hidePreloader() {
+  preloader.classList.add('done');
+}
+
 window.addEventListener('load', () => {
-  setTimeout(() => preloader.classList.add('done'), 600);
+  setTimeout(hidePreloader, 400);
 });
 
-// ---------- Полоса прокрутки и кнопка наверх ----------
-const progressBar = document.getElementById('progress');
-const toTop = document.getElementById('toTop');
+// Страховка: если что-то грузится слишком долго, прячем прелоадер принудительно
+setTimeout(hidePreloader, 2500);
 
-window.addEventListener('scroll', () => {
-  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-  progressBar.style.width = (window.scrollY / scrollable) * 100 + '%';
-  toTop.classList.toggle('show', window.scrollY > 500);
-});
-
-toTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
 
 // ---------- Бургер-меню ----------
 const burger = document.getElementById('burger');
@@ -41,7 +57,7 @@ nav.querySelectorAll('a').forEach(link =>
   })
 );
 
-// ---------- Появление карточек при прокрутке ----------
+// ---------- Появление блоков при прокрутке ----------
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -53,89 +69,13 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ---------- Анимированные цифры ----------
-const statObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const num = entry.target;
-    const target = +num.dataset.target;
-    let current = 0;
-    const step = Math.max(1, Math.round(target / 60));
-    const timer = setInterval(() => {
-      current += step;
-      if (current >= target) {
-        current = target;
-        clearInterval(timer);
-      }
-      num.textContent = current;
-    }, 25);
-    statObserver.unobserve(num);
-  });
-}, { threshold: 0.5 });
+// ---------- Кнопка наверх ----------
+const toTop = document.getElementById('toTop');
 
-document.querySelectorAll('.stat-num').forEach(el => statObserver.observe(el));
-
-// ---------- Слайдер отзывов ----------
-const track = document.getElementById('reviewTrack');
-const dotsBox = document.getElementById('reviewDots');
-const slidesCount = track.children.length;
-let slideIndex = 0;
-
-for (let i = 0; i < slidesCount; i++) {
-  const dot = document.createElement('span');
-  if (i === 0) dot.classList.add('active');
-  dot.addEventListener('click', () => goToSlide(i));
-  dotsBox.appendChild(dot);
-}
-
-function goToSlide(i) {
-  slideIndex = i;
-  track.style.transform = 'translateX(-' + i * 100 + '%)';
-  dotsBox.querySelectorAll('span').forEach((d, n) =>
-    d.classList.toggle('active', n === i)
-  );
-}
-
-setInterval(() => {
-  goToSlide((slideIndex + 1) % slidesCount);
-}, 5000);
-
-// ---------- Маска телефона ----------
-const phoneInput = document.getElementById('phone');
-
-phoneInput.addEventListener('input', () => {
-  let digits = phoneInput.value.replace(/\D/g, '');
-  if (digits.startsWith('8')) digits = '7' + digits.slice(1);
-  if (digits && !digits.startsWith('7')) digits = '7' + digits;
-  digits = digits.slice(0, 11);
-
-  let result = '';
-  if (digits.length) result = '+7';
-  if (digits.length > 1) result += ' (' + digits.slice(1, 4);
-  if (digits.length >= 5) result += ') ' + digits.slice(4, 7);
-  if (digits.length >= 8) result += '-' + digits.slice(7, 9);
-  if (digits.length >= 10) result += '-' + digits.slice(9, 11);
-
-  phoneInput.value = result;
+window.addEventListener('scroll', () => {
+  toTop.classList.toggle('show', window.scrollY > 500);
 });
 
-// ---------- Отправка формы ----------
-const form = document.getElementById('bookingForm');
-const formError = document.getElementById('formError');
-const success = document.getElementById('bookingSuccess');
-
-form.addEventListener('submit', e => {
-  e.preventDefault();
-
-  const name = form.name.value.trim();
-  const phone = phoneInput.value.replace(/\D/g, '');
-  const datetime = form.datetime.value;
-
-  const valid = name.length >= 2 && phone.length === 11 && datetime !== '';
-  formError.hidden = valid;
-
-  if (!valid) return;
-
-  form.hidden = true;
-  success.hidden = false;
+toTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
